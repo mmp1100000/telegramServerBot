@@ -31,6 +31,15 @@ echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
 dispatcher.add_handler(echo_handler)
 
 
+##
+def get_dice(update, context):
+    context.bot.send_dice(chat_id=update.effective_chat.id)
+
+
+dice_handler = CommandHandler('dice', get_dice)
+dispatcher.add_handler(dice_handler)
+
+
 ###
 def get_temperature(update, context):
     temp = get_system_temperature()
@@ -49,6 +58,6 @@ def job_temperature(context: CallbackContext):
                                  text=temp)
 
 
-job_minute = job_queue.run_repeating(job_temperature, interval=10, first=20 )
+job_minute = job_queue.run_repeating(job_temperature, interval=10, first=20)
 
 updater.start_polling()
