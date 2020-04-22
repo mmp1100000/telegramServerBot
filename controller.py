@@ -44,11 +44,11 @@ dispatcher.add_handler(echo_handler)
 def job_temperature(context: CallbackContext):
     temp = get_system_temperature()
     temp_value = float(temp[temp.index('=') + 1:temp.index('\'')])
-    if temp_value > 35.0:
+    if temp_value > 55.0:
         context.bot.send_message(chat_id='@rpialerts',
                                  text=temp)
 
 
-job_minute = job_queue.run_repeating(job_temperature, interval=10, first=20)
+job_minute = job_queue.run_repeating(job_temperature, interval=10, first=20 )
 
 updater.start_polling()
