@@ -35,7 +35,7 @@ def get_temperature(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=get_system_temperature())
 
 
-echo_handler = MessageHandler('temp', get_temperature)
+echo_handler = CommandHandler('temp', get_temperature)
 dispatcher.add_handler(echo_handler)
 
 
