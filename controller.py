@@ -42,7 +42,7 @@ dispatcher.add_handler(echo_handler)
 
 
 def callback_minute(context: CallbackContext):
-    context.bot.send_message(chat_id='@RPI',
+    context.bot.send_message(chat_id='@rpialerts',
                              text='One message every 5 s')
 
 
