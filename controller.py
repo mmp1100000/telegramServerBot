@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 
 from main.utils import get_system_temperature
@@ -10,7 +10,7 @@ TOKEN = '1111140645:AAGIykn2MX6jCcs42xlAnKB8o12zNOiIS3I'
 
 updater = Updater(token=TOKEN, use_context=True)
 dispatcher = updater.dispatcher
-
+job_queue = updater.job_queue
 
 ###
 def start(update, context):
@@ -33,12 +33,19 @@ dispatcher.add_handler(echo_handler)
 ###
 def get_temperature(update, context):
     temp = get_system_temperature()
-    print('temp: ' + temp)
     context.bot.send_message(chat_id=update.effective_chat.id, text=temp)
 
 
 echo_handler = CommandHandler('temp', get_temperature)
 dispatcher.add_handler(echo_handler)
+
+
+def callback_minute(context: CallbackContext):
+    context.bot.send_message(chat_id='@RPI',
+                             text='One message every 5 s')
+
+
+job_minute = job_queue.run_repeating(callback_minute, interval=5, first=0)
 
 
 updater.start_polling()
