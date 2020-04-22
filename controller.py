@@ -41,11 +41,14 @@ echo_handler = CommandHandler('temp', get_temperature)
 dispatcher.add_handler(echo_handler)
 
 
-def callback_minute(context: CallbackContext):
-    context.bot.send_message(chat_id='@rpialerts',
-                             text='One message every 5 s')
+def job_temperature(context: CallbackContext):
+    temp = get_system_temperature()
+    temp_value = float(temp[temp.index('=') + 1:temp.index('\'')])
+    if temp_value > 35.0:
+        context.bot.send_message(chat_id='@rpialerts',
+                                 text=temp)
 
 
-job_minute = job_queue.run_repeating(callback_minute, interval=5, first=0)
+job_minute = job_queue.run_repeating(job_temperature, interval=10, first=20)
 
 updater.start_polling()
