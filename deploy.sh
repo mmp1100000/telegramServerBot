@@ -1,5 +1,5 @@
 #!/bin/bash
 
-git pull
+git fetch --all
 sudo pipenv lock --requirements > requirements.txt
 sudo docker-compose up --build
