@@ -12,6 +12,7 @@ updater = Updater(token=TOKEN, use_context=True)
 dispatcher = updater.dispatcher
 job_queue = updater.job_queue
 
+
 ###
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="I'm a bot, please talk to me!")
@@ -46,6 +47,5 @@ def callback_minute(context: CallbackContext):
 
 
 job_minute = job_queue.run_repeating(callback_minute, interval=5, first=0)
-
 
 updater.start_polling()
