@@ -1,7 +1,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 
-from main.utils import get_system_temperature, get_gpiozero_temperature
+from main.utils import get_system_temperature
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -32,7 +32,7 @@ dispatcher.add_handler(echo_handler)
 
 ###
 def get_temperature(update, context):
-    temp = get_gpiozero_temperature()
+    temp = get_system_temperature()
     print('temp: ' + temp)
     context.bot.send_message(chat_id=update.effective_chat.id, text=temp)
 

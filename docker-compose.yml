@@ -4,3 +4,7 @@ services:
     build: .
     volumes:
     - "/opt/vc:/opt/vc:ro"
+    environment:
+      LD_LIBRARY_PATH: /opt/vc/lib
+    devices:
+      - "/dev/vchiq"
