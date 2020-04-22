@@ -32,7 +32,9 @@ dispatcher.add_handler(echo_handler)
 
 ###
 def get_temperature(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text=get_system_temperature())
+    temp = get_system_temperature()
+    print('temp: ' + temp)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=temp)
 
 
 echo_handler = CommandHandler('temp', get_temperature)
